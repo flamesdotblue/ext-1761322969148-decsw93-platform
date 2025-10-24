@@ -1,66 +1,64 @@
 import React, { useState } from 'react';
-import { Menu, X, Rocket } from 'lucide-react';
 
-const NavLink = ({ href, children, onClick }) => (
-  <a
-    href={href}
-    onClick={onClick}
-    className="px-3 py-2 text-sm md:text-base text-white/80 hover:text-white transition-colors"
-  >
-    {children}
-  </a>
-);
+const links = [
+  { href: '#home', label: 'Home' },
+  { href: '#about', label: 'About' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#contact', label: 'Contact' },
+];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
-  const close = () => setOpen(false);
-
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur supports-[backdrop-filter]:bg-black/30 border-b border-white/10">
-      <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
-        <a href="#home" className="flex items-center gap-2">
-          <div className="h-9 w-9 grid place-items-center rounded-lg bg-gradient-to-tr from-indigo-500 via-fuchsia-500 to-cyan-400">
-            <Rocket className="h-5 w-5 text-white" />
-          </div>
-          <span className="text-lg font-semibold tracking-tight">My Portfolio</span>
+    <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-slate-950/40">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+        <a href="#home" className="flex items-center gap-2 text-lg font-semibold">
+          <span className="inline-block h-2 w-2 rounded-full bg-cyan-400"></span>
+          <span>MyPortfolio</span>
         </a>
 
-        <nav className="hidden md:flex items-center">
-          <NavLink href="#projects">Projects</NavLink>
-          <NavLink href="#about">About</NavLink>
-          <NavLink href="#contact">Contact</NavLink>
-          <a
-            href="#contact"
-            className="ml-4 inline-flex items-center gap-2 rounded-md bg-white text-black px-4 py-2 text-sm font-medium hover:opacity-90 transition"
-          >
-            Hire Me
-          </a>
-        </nav>
-
         <button
-          className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-white/80 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/20"
-          onClick={() => setOpen(!open)}
+          className="inline-flex h-9 w-9 items-center justify-center rounded-md ring-1 ring-white/10 sm:hidden"
+          onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
         >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-slate-100">
+            <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          </svg>
         </button>
-      </div>
+
+        <ul className="hidden items-center gap-6 sm:flex">
+          {links.map((l) => (
+            <li key={l.href}>
+              <a href={l.href} className="text-sm text-slate-200 transition hover:text-cyan-300">
+                {l.label}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a href="#contact" className="rounded-md bg-cyan-400 px-3 py-1.5 text-sm font-semibold text-slate-950 shadow ring-1 ring-cyan-300/50 hover:bg-cyan-300">
+              Contact
+            </a>
+          </li>
+        </ul>
+      </nav>
 
       {open && (
-        <div className="md:hidden border-t border-white/10 bg-black/80 backdrop-blur">
-          <nav className="px-4 py-2 flex flex-col">
-            <NavLink href="#projects" onClick={close}>Projects</NavLink>
-            <NavLink href="#about" onClick={close}>About</NavLink>
-            <NavLink href="#contact" onClick={close}>Contact</NavLink>
-            <a
-              href="#contact"
-              onClick={close}
-              className="mt-2 inline-flex items-center justify-center rounded-md bg-white text-black px-4 py-2 text-sm font-medium"
-            >
-              Hire Me
-            </a>
-          </nav>
+        <div className="border-t border-white/10 px-4 py-3 sm:hidden">
+          <ul className="grid gap-3">
+            {links.map((l) => (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className="block rounded-md px-3 py-2 text-slate-200 ring-1 ring-white/10 hover:bg-white/5"
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </header>

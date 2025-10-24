@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section id="home" className="relative isolate grid min-h-[80vh] grid-cols-1 items-center gap-8 py-10 sm:py-14 lg:min-h-[88vh] lg:grid-cols-2">
       {/* Background glow */}
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-cyan-500/20 blur-3xl" />
       </div>
 
@@ -35,7 +35,6 @@ export default function Hero() {
       {/* Right 3D scene */}
       <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-2xl lg:aspect-square">
         <Spline scene="https://prod.spline.design/VJLoxp84lCdVfdZu/scene.splinecode" style={{ width: '100%', height: '100%' }} />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/10 to-transparent" />
       </div>
     </section>
   );
